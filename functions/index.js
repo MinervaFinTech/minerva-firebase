@@ -6,3 +6,7 @@ const functions = require('firebase-functions');
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+exports.fetchMCData = functions.https.onRequest((request, response) => {
+    response.send("Fetched MC Data for MC Code="+request.query.mc);
+});
