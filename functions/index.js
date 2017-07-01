@@ -2,7 +2,7 @@ const functions = require('firebase-functions'),
     admin = require('firebase-admin'),
     request = require('request-promise'),
     csvUtil = require('csv-string'),
-    credentials = require('./credentials.json');
+    credentials = require('./credentials.json').FIREBASEs;
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials),
@@ -34,16 +34,6 @@ function getNSEQuote(symbol,market) {
                     }
                     return obj;
                 }, {});
-           
-            // const max = data
-            //     .filter(function (x) { return fromDate.getTime() <= new Date(x[0]).getTime(); })
-            //     .reduce(function (prev, curr) {
-            //         return prev[4] > curr[4] ? prev : curr;
-            //     }, [0, 0, 0, 0, 0])[4];
-            // const lastDay = data[data.length - 1][4]
-
-            // return per = ((max - lastDay) / max) * 100
-
 
         })
 }
@@ -60,3 +50,6 @@ exports.csv = functions.https.onRequest((req, res) => {
         res.send('added successfully');
     });
 });
+
+exports.createUser = require('./createUser')(functions,db);
+exports.kiteCallback = require('./kiteCallback')(functions,db);
