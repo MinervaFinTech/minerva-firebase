@@ -12,6 +12,7 @@
 
     <!-- Style Section Begins -->
     <link rel="stylesheet" href="styles/main.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.css" />
     <!-- Style Section Ends -->
 
     <!-- Web Manifest -->
@@ -20,6 +21,7 @@
 </head>
 
 <body id="body" class="body">
+
     <div id="bodyWrapper" class="body-wrapper"></div>
 
     <!-- Scripts Section Begins -->
@@ -28,10 +30,42 @@
     <script src="react/bundle.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js', { scope: './' })
+            navigator.serviceWorker.register('service-worker.js', {
+                scope: './'
+            })
         }
     </script>
     <!-- Scripts Section Ends -->
+
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.2.1/firebaseui.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDYXK1XqA1IeJZCFX7wUKfMPrf2_vw908E",
+            authDomain: "minerva-ae094.firebaseapp.com",
+            databaseURL: "https://minerva-ae094.firebaseio.com",
+            projectId: "minerva-ae094",
+            storageBucket: "minerva-ae094.appspot.com",
+            messagingSenderId: "930386897254"
+        };
+        firebase.initializeApp(config);
+        var uiConfig = {
+            signInSuccessUrl: './dashboard',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.PhoneAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>'
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
 
 </body>
 
