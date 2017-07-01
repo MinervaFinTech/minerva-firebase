@@ -2,7 +2,7 @@ const functions = require('firebase-functions'),
     admin = require('firebase-admin'),
     request = require('request-promise'),
     csvUtil = require('csv-string'),
-    credentials = require('./credentials.json').FIREBASEs;
+    credentials = require('./credentials.json').FIREBASE;
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials),
