@@ -26288,7 +26288,7 @@
 
 	var _Routes = __webpack_require__(242);
 
-	var _BaseView = __webpack_require__(312);
+	var _BaseView = __webpack_require__(313);
 
 	var styles = _interopRequireWildcard(_BaseView);
 
@@ -27023,9 +27023,9 @@
 
 	var _IntroView = __webpack_require__(243);
 
-	var _ErrorView = __webpack_require__(306);
+	var _ErrorView = __webpack_require__(307);
 
-	var _DashboardView = __webpack_require__(309);
+	var _DashboardView = __webpack_require__(310);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27070,6 +27070,8 @@
 
 	var firebaseui = _interopRequireWildcard(_firebaseui);
 
+	var _FirebaseManager = __webpack_require__(306);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27096,27 +27098,24 @@
 	    _createClass(IntroView, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
-	            var config = {
-	                apiKey: "AIzaSyDYXK1XqA1IeJZCFX7wUKfMPrf2_vw908E",
-	                authDomain: "minerva-ae094.firebaseapp.com",
-	                databaseURL: "https://minerva-ae094.firebaseio.com",
-	                projectId: "minerva-ae094",
-	                storageBucket: "minerva-ae094.appspot.com",
-	                messagingSenderId: "930386897254"
-	            };
-	            console.log('the great firebase = ' + firebase);
-	            var firebaseApp = firebase.initializeApp(config);
+
 	            var uiConfig = {
 	                signInSuccessUrl: './dashboard',
-	                signInOptions: [
-	                // Leave the lines as is for the providers you want to offer your users.
-	                firebase.auth.PhoneAuthProvider.PROVIDER_ID],
+	                signInOptions: [{
+	                    provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+	                    recaptchaParameters: {
+	                        type: 'image', // 'audio'
+	                        size: 'normal', // 'invisible' or 'compact'
+	                        badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+	                    },
+	                    defaultCountry: 'IN' // Set default country to the United Kingdom (+44).
+	                }],
 	                // Terms of service url.
 	                tosUrl: '<your-tos-url>'
 	            };
 
 	            // Initialize the FirebaseUI Widget using Firebase.
-	            var ui = new firebaseui.auth.AuthUI(firebaseApp.auth());
+	            var ui = new firebaseui.auth.AuthUI(_FirebaseManager.firebaseApp.auth());
 
 	            // The start method will wait until the DOM is loaded.
 	            ui.start('#firebaseui-auth-container', uiConfig);
@@ -36131,6 +36130,33 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.firebaseApp = undefined;
+
+	var _firebase = __webpack_require__(247);
+
+	var firebase = _interopRequireWildcard(_firebase);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	var config = {
+	    apiKey: "AIzaSyDYXK1XqA1IeJZCFX7wUKfMPrf2_vw908E",
+	    authDomain: "minerva-ae094.firebaseapp.com",
+	    databaseURL: "https://minerva-ae094.firebaseio.com",
+	    projectId: "minerva-ae094",
+	    storageBucket: "minerva-ae094.appspot.com",
+	    messagingSenderId: "930386897254"
+	};
+	var firebaseApp = exports.firebaseApp = firebase.initializeApp(config);
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ErrorView = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -36143,7 +36169,7 @@
 
 	var _minerva2 = _interopRequireDefault(_minerva);
 
-	var _ErrorView = __webpack_require__(307);
+	var _ErrorView = __webpack_require__(308);
 
 	var styles = _interopRequireWildcard(_ErrorView);
 
@@ -36222,13 +36248,13 @@
 	}(_react.Component);
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(308);
+	var content = __webpack_require__(309);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -36253,7 +36279,7 @@
 	}
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(239)(true);
@@ -36278,7 +36304,7 @@
 	};
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36298,7 +36324,7 @@
 
 	var _minerva2 = _interopRequireDefault(_minerva);
 
-	var _DashboardView = __webpack_require__(310);
+	var _DashboardView = __webpack_require__(311);
 
 	var styles = _interopRequireWildcard(_DashboardView);
 
@@ -36377,13 +36403,13 @@
 	}(_react.Component);
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(311);
+	var content = __webpack_require__(312);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -36408,7 +36434,7 @@
 	}
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(239)(true);
@@ -36433,13 +36459,13 @@
 	};
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(313);
+	var content = __webpack_require__(314);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -36464,7 +36490,7 @@
 	}
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(239)(true);

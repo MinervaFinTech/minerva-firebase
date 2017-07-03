@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { BaseView } from './components/base/BaseView.jsx';
 
-
 render(
     <BrowserRouter>
         <BaseView />
