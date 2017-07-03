@@ -27062,15 +27062,7 @@
 
 	var styles = _interopRequireWildcard(_IntroView);
 
-	var _firebase = __webpack_require__(247);
-
-	var firebase = _interopRequireWildcard(_firebase);
-
-	var _firebaseui = __webpack_require__(303);
-
-	var firebaseui = _interopRequireWildcard(_firebaseui);
-
-	var _FirebaseManager = __webpack_require__(306);
+	var _FirebaseManager = __webpack_require__(247);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -27089,36 +27081,13 @@
 	    function IntroView(props) {
 	        _classCallCheck(this, IntroView);
 
-	        var _this = _possibleConstructorReturn(this, (IntroView.__proto__ || Object.getPrototypeOf(IntroView)).call(this, props));
-
-	        console.log('the great firebase = ' + firebase);
-	        return _this;
+	        return _possibleConstructorReturn(this, (IntroView.__proto__ || Object.getPrototypeOf(IntroView)).call(this, props));
 	    }
 
 	    _createClass(IntroView, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
-
-	            var uiConfig = {
-	                signInSuccessUrl: './dashboard',
-	                signInOptions: [{
-	                    provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-	                    recaptchaParameters: {
-	                        type: 'image', // 'audio'
-	                        size: 'normal', // 'invisible' or 'compact'
-	                        badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
-	                    },
-	                    defaultCountry: 'IN' // Set default country to the United Kingdom (+44).
-	                }],
-	                // Terms of service url.
-	                tosUrl: '<your-tos-url>'
-	            };
-
-	            // Initialize the FirebaseUI Widget using Firebase.
-	            var ui = new firebaseui.auth.AuthUI(_FirebaseManager.firebaseApp.auth());
-
-	            // The start method will wait until the DOM is loaded.
-	            ui.start('#firebaseui-auth-container', uiConfig);
+	            (0, _FirebaseManager.loadFirebaseUI)('#firebaseui-auth-container', './dashboard');
 	        }
 	    }, {
 	        key: "render",
@@ -27231,37 +27200,55 @@
 /* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/*! @license Firebase v4.1.3
-	Build: rev-1234895
-	Terms: https://firebase.google.com/terms/ */
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.loadFirebaseUI = exports.firebaseApp = undefined;
 
-	var _app = __webpack_require__(248);
+	var _firebase = __webpack_require__(248);
 
-	var _app2 = _interopRequireDefault(_app);
+	var firebase = _interopRequireWildcard(_firebase);
 
-	__webpack_require__(257);
+	var _firebaseui = __webpack_require__(304);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var firebaseui = _interopRequireWildcard(_firebaseui);
 
-	// Import instance of FirebaseApp from ./app
-	var Storage, XMLHttpRequest;
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-	__webpack_require__(258);
-	__webpack_require__(259);
-	var AsyncStorage;
+	var firebaseConfig = {
+	    apiKey: "AIzaSyDYXK1XqA1IeJZCFX7wUKfMPrf2_vw908E",
+	    authDomain: "minerva-ae094.firebaseapp.com",
+	    databaseURL: "https://minerva-ae094.firebaseio.com",
+	    projectId: "minerva-ae094",
+	    storageBucket: "minerva-ae094.appspot.com",
+	    messagingSenderId: "930386897254"
+	};
+	var firebaseApp = exports.firebaseApp = firebase.initializeApp(firebaseConfig);
 
-	__webpack_require__(292);
-	// Export the single instance of firebase
-	exports.default = _app2.default;
-	module.exports = exports['default'];
-	//# sourceMappingURL=firebase-browser.js.map
+	var loadFirebaseUI = exports.loadFirebaseUI = function loadFirebaseUI(domSelector, redirectURL) {
+	    var firebaseUIConfig = {
+	        signInSuccessUrl: redirectURL,
+	        signInOptions: [{
+	            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+	            recaptchaParameters: {
+	                type: 'image', // 'audio'
+	                size: 'normal', // 'invisible' or 'compact'
+	                badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+	            },
+	            defaultCountry: 'IN' // Set default country to the United Kingdom (+44).
+	        }],
+	        // Terms of service url.
+	        tosUrl: '<your-tos-url>'
+	    };
 
+	    // Initialize the FirebaseUI Widget using Firebase.
+	    var ui = new firebaseui.auth.AuthUI(firebaseApp.auth());
+
+	    // The start method will wait until the DOM is loaded.
+	    ui.start(domSelector, firebaseUIConfig);
+	};
 
 /***/ }),
 /* 248 */
@@ -27274,10 +27261,46 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _app = __webpack_require__(249);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	__webpack_require__(258);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// Import instance of FirebaseApp from ./app
+	var Storage, XMLHttpRequest;
+
+	__webpack_require__(259);
+	__webpack_require__(260);
+	var AsyncStorage;
+
+	__webpack_require__(293);
+	// Export the single instance of firebase
+	exports.default = _app2.default;
+	module.exports = exports['default'];
+	//# sourceMappingURL=firebase-browser.js.map
+
+
+/***/ }),
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/*! @license Firebase v4.1.3
+	Build: rev-1234895
+	Terms: https://firebase.google.com/terms/ */
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _firebase_app = __webpack_require__(249);
+	var _firebase_app = __webpack_require__(250);
 
 	// Export a single instance of firebase app
 	var firebase = (0, _firebase_app.createFirebaseNamespace)(); /**
@@ -27302,7 +27325,7 @@
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -27334,13 +27357,13 @@
 
 	exports.createFirebaseNamespace = createFirebaseNamespace;
 
-	var _subscribe = __webpack_require__(250);
+	var _subscribe = __webpack_require__(251);
 
-	var _errors = __webpack_require__(255);
+	var _errors = __webpack_require__(256);
 
-	var _shared_promise = __webpack_require__(251);
+	var _shared_promise = __webpack_require__(252);
 
-	var _deep_copy = __webpack_require__(256);
+	var _deep_copy = __webpack_require__(257);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27707,7 +27730,7 @@
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -27727,7 +27750,7 @@
 	exports.createSubscribe = createSubscribe;
 	exports.async = async;
 
-	var _shared_promise = __webpack_require__(251);
+	var _shared_promise = __webpack_require__(252);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27991,7 +28014,7 @@
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v4.1.3
@@ -28030,7 +28053,7 @@
 	        throw new Error('polyfill failed because global object is unavailable in this environment');
 	    }
 	}
-	var PromiseImpl = scope.Promise || __webpack_require__(252);
+	var PromiseImpl = scope.Promise || __webpack_require__(253);
 	var local = exports.local = {
 	    Promise: PromiseImpl,
 	    GoogPromise: PromiseImpl
@@ -28040,7 +28063,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate) {(function (root) {
@@ -28277,10 +28300,10 @@
 
 	})(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(254).setImmediate))
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var apply = Function.prototype.apply;
@@ -28333,13 +28356,13 @@
 	};
 
 	// setimmediate attaches itself to the global object
-	__webpack_require__(254);
+	__webpack_require__(255);
 	exports.setImmediate = setImmediate;
 	exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -28532,7 +28555,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(3)))
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -28638,7 +28661,7 @@
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -28739,14 +28762,14 @@
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v4.1.3
 	Build: rev-1234895
 	Terms: https://firebase.google.com/terms/ */
 
-	var firebase = __webpack_require__(248);
+	var firebase = __webpack_require__(249);
 	(function(){(function(){var h,aa=aa||{},k=this,m=function(a){return void 0!==a},p=function(a){return"string"==typeof a},ba=function(a){return"boolean"==typeof a},ca=function(a){return"number"==typeof a},da=function(){},ea=function(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&
 	!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";else if("function"==b&&"undefined"==typeof a.call)return"object";return b},fa=function(a){return null===a},ga=function(a){return"array"==ea(a)},ha=function(a){var b=ea(a);return"array"==b||"object"==b&&"number"==typeof a.length},q=function(a){return"function"==ea(a)},r=function(a){var b=
 	typeof a;return"object"==b&&null!=a||"function"==b},ia=function(a,b,c){return a.call.apply(a.bind,arguments)},ja=function(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}},t=function(a,b,c){t=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?ia:ja;return t.apply(null,
@@ -29023,7 +29046,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -29054,7 +29077,7 @@
 	THE SOFTWARE. */
 
 	(function() {
-	            var firebase = __webpack_require__(248);
+	            var firebase = __webpack_require__(249);
 	            var g,aa=this;function n(a){return void 0!==a}function ba(){}function ca(a){a.Vb=function(){return a.Ye?a.Ye:a.Ye=new a}}
 	function da(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
 	else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function ea(a){return"array"==da(a)}function fa(a){var b=da(a);return"array"==b||"object"==b&&"number"==typeof a.length}function p(a){return"string"==typeof a}function ga(a){return"number"==typeof a}function ha(a){return"function"==da(a)}function ia(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}function ja(a,b,c){return a.call.apply(a.bind,arguments)}
@@ -29294,7 +29317,7 @@
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -29308,17 +29331,17 @@
 	});
 	exports.registerStorage = registerStorage;
 
-	var _string = __webpack_require__(260);
+	var _string = __webpack_require__(261);
 
-	var _taskenums = __webpack_require__(263);
+	var _taskenums = __webpack_require__(264);
 
-	var _xhriopool = __webpack_require__(264);
+	var _xhriopool = __webpack_require__(265);
 
-	var _reference = __webpack_require__(270);
+	var _reference = __webpack_require__(271);
 
-	var _service = __webpack_require__(286);
+	var _service = __webpack_require__(287);
 
-	var _app = __webpack_require__(248);
+	var _app = __webpack_require__(249);
 
 	var _app2 = _interopRequireDefault(_app);
 
@@ -29363,7 +29386,7 @@
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -29384,7 +29407,7 @@
 	exports.dataURLBytes_ = dataURLBytes_;
 	exports.dataURLContentType_ = dataURLContentType_;
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
@@ -29572,7 +29595,7 @@
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -29628,7 +29651,7 @@
 	exports.invalidFormat = invalidFormat;
 	exports.internalError = internalError;
 
-	var _constants = __webpack_require__(262);
+	var _constants = __webpack_require__(263);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29810,7 +29833,7 @@
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -29896,7 +29919,7 @@
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -29972,7 +29995,7 @@
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30003,7 +30026,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
 
 
-	var _xhrio_network = __webpack_require__(265);
+	var _xhrio_network = __webpack_require__(266);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30028,7 +30051,7 @@
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30059,23 +30082,23 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
 
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var promiseimpl = _interopRequireWildcard(_promise_external);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
-	var _xhrio = __webpack_require__(269);
+	var _xhrio = __webpack_require__(270);
 
 	var XhrIoExports = _interopRequireWildcard(_xhrio);
 
@@ -30226,7 +30249,7 @@
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -30297,7 +30320,7 @@
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30313,7 +30336,7 @@
 	exports.resolve = resolve;
 	exports.reject = reject;
 
-	var _shared_promise = __webpack_require__(251);
+	var _shared_promise = __webpack_require__(252);
 
 	function make(resolver) {
 	  return new _shared_promise.local.Promise(resolver);
@@ -30355,7 +30378,7 @@
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -30446,7 +30469,7 @@
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -30486,7 +30509,7 @@
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30520,43 +30543,43 @@
 	 */
 
 
-	var _args = __webpack_require__(271);
+	var _args = __webpack_require__(272);
 
 	var args = _interopRequireWildcard(_args);
 
-	var _blob = __webpack_require__(277);
+	var _blob = __webpack_require__(278);
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
-	var _location = __webpack_require__(274);
+	var _location = __webpack_require__(275);
 
-	var _metadata = __webpack_require__(272);
+	var _metadata = __webpack_require__(273);
 
 	var metadata = _interopRequireWildcard(_metadata);
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
-	var _path = __webpack_require__(275);
+	var _path = __webpack_require__(276);
 
 	var path = _interopRequireWildcard(_path);
 
-	var _requests = __webpack_require__(279);
+	var _requests = __webpack_require__(280);
 
 	var requests = _interopRequireWildcard(_requests);
 
-	var _string = __webpack_require__(260);
+	var _string = __webpack_require__(261);
 
 	var fbsString = _interopRequireWildcard(_string);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
-	var _task = __webpack_require__(282);
+	var _task = __webpack_require__(283);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -30794,7 +30817,7 @@
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30816,15 +30839,15 @@
 	exports.looseObjectSpec = looseObjectSpec;
 	exports.nullFunctionSpec = nullFunctionSpec;
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
-	var _metadata = __webpack_require__(272);
+	var _metadata = __webpack_require__(273);
 
 	var MetadataUtils = _interopRequireWildcard(_metadata);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -30957,7 +30980,7 @@
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -30979,21 +31002,21 @@
 	exports.toResourceString = toResourceString;
 	exports.metadataValidator = metadataValidator;
 
-	var _json = __webpack_require__(273);
+	var _json = __webpack_require__(274);
 
 	var json = _interopRequireWildcard(_json);
 
-	var _location = __webpack_require__(274);
+	var _location = __webpack_require__(275);
 
-	var _path = __webpack_require__(275);
+	var _path = __webpack_require__(276);
 
 	var path = _interopRequireWildcard(_path);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
-	var _url = __webpack_require__(276);
+	var _url = __webpack_require__(277);
 
 	var UrlUtils = _interopRequireWildcard(_url);
 
@@ -31166,7 +31189,7 @@
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31180,7 +31203,7 @@
 	});
 	exports.jsonObjectOrNull = jsonObjectOrNull;
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -31221,7 +31244,7 @@
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31256,7 +31279,7 @@
 	 */
 
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
@@ -31353,7 +31376,7 @@
 
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -31442,7 +31465,7 @@
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31459,11 +31482,11 @@
 	exports.makeUploadUrl = makeUploadUrl;
 	exports.makeQueryString = makeQueryString;
 
-	var _constants = __webpack_require__(262);
+	var _constants = __webpack_require__(263);
 
 	var constants = _interopRequireWildcard(_constants);
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
@@ -31511,7 +31534,7 @@
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31547,15 +31570,15 @@
 	 */
 
 
-	var _fs = __webpack_require__(278);
+	var _fs = __webpack_require__(279);
 
 	var fs = _interopRequireWildcard(_fs);
 
-	var _string = __webpack_require__(260);
+	var _string = __webpack_require__(261);
 
 	var string = _interopRequireWildcard(_string);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -31676,7 +31699,7 @@
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31691,7 +31714,7 @@
 	exports.getBlob = getBlob;
 	exports.sliceBlob = sliceBlob;
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -31756,7 +31779,7 @@
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -31784,31 +31807,31 @@
 	exports.getResumableUploadStatus = getResumableUploadStatus;
 	exports.continueResumableUpload = continueResumableUpload;
 
-	var _array = __webpack_require__(280);
+	var _array = __webpack_require__(281);
 
 	var array = _interopRequireWildcard(_array);
 
-	var _blob = __webpack_require__(277);
+	var _blob = __webpack_require__(278);
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
-	var _metadata = __webpack_require__(272);
+	var _metadata = __webpack_require__(273);
 
 	var MetadataUtils = _interopRequireWildcard(_metadata);
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
-	var _requestinfo = __webpack_require__(281);
+	var _requestinfo = __webpack_require__(282);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
-	var _url = __webpack_require__(276);
+	var _url = __webpack_require__(277);
 
 	var UrlUtils = _interopRequireWildcard(_url);
 
@@ -32109,7 +32132,7 @@
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -32182,7 +32205,7 @@
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -32228,7 +32251,7 @@
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -32262,37 +32285,37 @@
 	 */
 
 
-	var _taskenums = __webpack_require__(263);
+	var _taskenums = __webpack_require__(264);
 
 	var fbsTaskEnums = _interopRequireWildcard(_taskenums);
 
-	var _observer = __webpack_require__(283);
+	var _observer = __webpack_require__(284);
 
-	var _tasksnapshot = __webpack_require__(284);
+	var _tasksnapshot = __webpack_require__(285);
 
-	var _args = __webpack_require__(271);
+	var _args = __webpack_require__(272);
 
 	var fbsArgs = _interopRequireWildcard(_args);
 
-	var _array = __webpack_require__(280);
+	var _array = __webpack_require__(281);
 
 	var fbsArray = _interopRequireWildcard(_array);
 
-	var _async = __webpack_require__(285);
+	var _async = __webpack_require__(286);
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errors = _interopRequireWildcard(_error);
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var fbsPromiseimpl = _interopRequireWildcard(_promise_external);
 
-	var _requests = __webpack_require__(279);
+	var _requests = __webpack_require__(280);
 
 	var fbsRequests = _interopRequireWildcard(_requests);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var typeUtils = _interopRequireWildcard(_type);
 
@@ -32870,7 +32893,7 @@
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -32884,7 +32907,7 @@
 	});
 	exports.Observer = undefined;
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -32929,7 +32952,7 @@
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -32980,7 +33003,7 @@
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -32994,7 +33017,7 @@
 	});
 	exports.async = async;
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var promiseimpl = _interopRequireWildcard(_promise_external);
 
@@ -33037,7 +33060,7 @@
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33068,23 +33091,23 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
 
 
-	var _args = __webpack_require__(271);
+	var _args = __webpack_require__(272);
 
 	var args = _interopRequireWildcard(_args);
 
-	var _authwrapper = __webpack_require__(287);
+	var _authwrapper = __webpack_require__(288);
 
-	var _location = __webpack_require__(274);
+	var _location = __webpack_require__(275);
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var fbsPromiseImpl = _interopRequireWildcard(_promise_external);
 
-	var _request = __webpack_require__(290);
+	var _request = __webpack_require__(291);
 
 	var RequestExports = _interopRequireWildcard(_request);
 
-	var _reference = __webpack_require__(270);
+	var _reference = __webpack_require__(271);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -33227,7 +33250,7 @@
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33243,25 +33266,25 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _constants = __webpack_require__(262);
+	var _constants = __webpack_require__(263);
 
 	var constants = _interopRequireWildcard(_constants);
 
-	var _error2 = __webpack_require__(261);
+	var _error2 = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error2);
 
-	var _failrequest = __webpack_require__(288);
+	var _failrequest = __webpack_require__(289);
 
-	var _location = __webpack_require__(274);
+	var _location = __webpack_require__(275);
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var promiseimpl = _interopRequireWildcard(_promise_external);
 
-	var _requestmap = __webpack_require__(289);
+	var _requestmap = __webpack_require__(290);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
@@ -33408,7 +33431,7 @@
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33424,7 +33447,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var promiseimpl = _interopRequireWildcard(_promise_external);
 
@@ -33466,7 +33489,7 @@
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33497,11 +33520,11 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
 
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
-	var _constants = __webpack_require__(262);
+	var _constants = __webpack_require__(263);
 
 	var constants = _interopRequireWildcard(_constants);
 
@@ -33560,7 +33583,7 @@
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33599,35 +33622,35 @@
 	exports.addVersionHeader_ = addVersionHeader_;
 	exports.makeRequest = makeRequest;
 
-	var _array = __webpack_require__(280);
+	var _array = __webpack_require__(281);
 
 	var array = _interopRequireWildcard(_array);
 
-	var _backoff = __webpack_require__(291);
+	var _backoff = __webpack_require__(292);
 
 	var backoff = _interopRequireWildcard(_backoff);
 
-	var _error = __webpack_require__(261);
+	var _error = __webpack_require__(262);
 
 	var errorsExports = _interopRequireWildcard(_error);
 
-	var _object = __webpack_require__(266);
+	var _object = __webpack_require__(267);
 
 	var object = _interopRequireWildcard(_object);
 
-	var _promise_external = __webpack_require__(267);
+	var _promise_external = __webpack_require__(268);
 
 	var promiseimpl = _interopRequireWildcard(_promise_external);
 
-	var _type = __webpack_require__(268);
+	var _type = __webpack_require__(269);
 
 	var type = _interopRequireWildcard(_type);
 
-	var _url = __webpack_require__(276);
+	var _url = __webpack_require__(277);
 
 	var UrlUtils = _interopRequireWildcard(_url);
 
-	var _xhrio = __webpack_require__(269);
+	var _xhrio = __webpack_require__(270);
 
 	var XhrIoExports = _interopRequireWildcard(_xhrio);
 
@@ -33832,7 +33855,7 @@
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -33963,7 +33986,7 @@
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -33992,15 +34015,15 @@
 	});
 	exports.registerMessaging = registerMessaging;
 
-	var _windowController = __webpack_require__(293);
+	var _windowController = __webpack_require__(294);
 
 	var _windowController2 = _interopRequireDefault(_windowController);
 
-	var _swController = __webpack_require__(302);
+	var _swController = __webpack_require__(303);
 
 	var _swController2 = _interopRequireDefault(_swController);
 
-	var _app = __webpack_require__(248);
+	var _app = __webpack_require__(249);
 
 	var _app2 = _interopRequireDefault(_app);
 
@@ -34023,7 +34046,7 @@
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -34055,27 +34078,27 @@
 
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-	var _controllerInterface = __webpack_require__(294);
+	var _controllerInterface = __webpack_require__(295);
 
 	var _controllerInterface2 = _interopRequireDefault(_controllerInterface);
 
-	var _errors = __webpack_require__(295);
+	var _errors = __webpack_require__(296);
 
 	var _errors2 = _interopRequireDefault(_errors);
 
-	var _workerPageMessage = __webpack_require__(300);
+	var _workerPageMessage = __webpack_require__(301);
 
 	var _workerPageMessage2 = _interopRequireDefault(_workerPageMessage);
 
-	var _defaultSw = __webpack_require__(301);
+	var _defaultSw = __webpack_require__(302);
 
 	var _defaultSw2 = _interopRequireDefault(_defaultSw);
 
-	var _notificationPermission = __webpack_require__(299);
+	var _notificationPermission = __webpack_require__(300);
 
 	var _notificationPermission2 = _interopRequireDefault(_notificationPermission);
 
-	var _subscribe = __webpack_require__(250);
+	var _subscribe = __webpack_require__(251);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34423,7 +34446,7 @@
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -34453,17 +34476,17 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _errors = __webpack_require__(255);
+	var _errors = __webpack_require__(256);
 
-	var _errors2 = __webpack_require__(295);
+	var _errors2 = __webpack_require__(296);
 
 	var _errors3 = _interopRequireDefault(_errors2);
 
-	var _tokenManager = __webpack_require__(296);
+	var _tokenManager = __webpack_require__(297);
 
 	var _tokenManager2 = _interopRequireDefault(_tokenManager);
 
-	var _notificationPermission = __webpack_require__(299);
+	var _notificationPermission = __webpack_require__(300);
 
 	var _notificationPermission2 = _interopRequireDefault(_notificationPermission);
 
@@ -34662,7 +34685,7 @@
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -34739,7 +34762,7 @@
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -34769,17 +34792,17 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _errors = __webpack_require__(255);
+	var _errors = __webpack_require__(256);
 
-	var _errors2 = __webpack_require__(295);
+	var _errors2 = __webpack_require__(296);
 
 	var _errors3 = _interopRequireDefault(_errors2);
 
-	var _arrayBufferToBase = __webpack_require__(297);
+	var _arrayBufferToBase = __webpack_require__(298);
 
 	var _arrayBufferToBase2 = _interopRequireDefault(_arrayBufferToBase);
 
-	var _fcmDetails = __webpack_require__(298);
+	var _fcmDetails = __webpack_require__(299);
 
 	var _fcmDetails2 = _interopRequireDefault(_fcmDetails);
 
@@ -35160,7 +35183,7 @@
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -35202,7 +35225,7 @@
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -35244,7 +35267,7 @@
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -35281,7 +35304,7 @@
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -35339,7 +35362,7 @@
 
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports) {
 
 	/*! @license Firebase v4.1.3
@@ -35375,7 +35398,7 @@
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*! @license Firebase v4.1.3
@@ -35407,19 +35430,19 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _controllerInterface = __webpack_require__(294);
+	var _controllerInterface = __webpack_require__(295);
 
 	var _controllerInterface2 = _interopRequireDefault(_controllerInterface);
 
-	var _errors = __webpack_require__(295);
+	var _errors = __webpack_require__(296);
 
 	var _errors2 = _interopRequireDefault(_errors);
 
-	var _workerPageMessage = __webpack_require__(300);
+	var _workerPageMessage = __webpack_require__(301);
 
 	var _workerPageMessage2 = _interopRequireDefault(_workerPageMessage);
 
-	var _fcmDetails = __webpack_require__(298);
+	var _fcmDetails = __webpack_require__(299);
 
 	var _fcmDetails2 = _interopRequireDefault(_fcmDetails);
 
@@ -35752,10 +35775,10 @@
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {(function() { var firebase=__webpack_require__(247);/*
+	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {(function() { var firebase=__webpack_require__(248);/*
 
 	 Copyright 2015 Google Inc. All Rights Reserved.
 
@@ -35824,7 +35847,7 @@
 	function(event){this.forwardTab_=undefined;if(event.keyCode===27){event.preventDefault();event.stopPropagation();var cancelEvent=new supportCustomEvent("cancel",{bubbles:false,cancelable:true});var dpi=this.pendingDialogStack[0];if(dpi&&dpi.dialog.dispatchEvent(cancelEvent))dpi.dialog.close()}else if(event.keyCode===9)this.forwardTab_=!event.shiftKey};dialogPolyfill.DialogManager.prototype.checkDOM_=function(removed){var clone=this.pendingDialogStack.slice();clone.forEach(function(dpi){if(removed.indexOf(dpi.dialog)!==
 	-1)dpi.downgradeModal();else dpi.maybeHideModal()})};dialogPolyfill.DialogManager.prototype.pushDialog=function(dpi){var allowed=(this.zIndexHigh_-this.zIndexLow_)/2-1;if(this.pendingDialogStack.length>=allowed)return false;if(this.pendingDialogStack.unshift(dpi)===1)this.blockDocument();this.updateStacking();return true};dialogPolyfill.DialogManager.prototype.removeDialog=function(dpi){var index=this.pendingDialogStack.indexOf(dpi);if(index==-1)return;this.pendingDialogStack.splice(index,1);if(this.pendingDialogStack.length===
 	0)this.unblockDocument();this.updateStacking()};dialogPolyfill.dm=new dialogPolyfill.DialogManager;document.addEventListener("submit",function(ev){var target=ev.target;if(!target||!target.hasAttribute("method"))return;if(target.getAttribute("method").toLowerCase()!=="dialog")return;ev.preventDefault();var dialog=findNearestDialog((ev.target));if(!dialog)return;var returnValue;var cands=[document.activeElement,ev.explicitOriginalTarget];var els=["BUTTON","INPUT"];cands.some(function(cand){if(cand&&
-	cand.form==ev.target&&els.indexOf(cand.nodeName.toUpperCase())!=-1){returnValue=cand.value;return true}});dialog.close(returnValue)},true);dialogPolyfill["forceRegisterDialog"]=dialogPolyfill.forceRegisterDialog;dialogPolyfill["registerDialog"]=dialogPolyfill.registerDialog;if("function"==="function"&&"amd"in __webpack_require__(305))!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return dialogPolyfill}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if(typeof module==="object"&&typeof module["exports"]==="object")module["exports"]=dialogPolyfill;else window["dialogPolyfill"]=dialogPolyfill})();(function(){var h,l=this;function m(a){return void 0!==a}function aa(){}function ba(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=
+	cand.form==ev.target&&els.indexOf(cand.nodeName.toUpperCase())!=-1){returnValue=cand.value;return true}});dialog.close(returnValue)},true);dialogPolyfill["forceRegisterDialog"]=dialogPolyfill.forceRegisterDialog;dialogPolyfill["registerDialog"]=dialogPolyfill.registerDialog;if("function"==="function"&&"amd"in __webpack_require__(306))!(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return dialogPolyfill}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if(typeof module==="object"&&typeof module["exports"]==="object")module["exports"]=dialogPolyfill;else window["dialogPolyfill"]=dialogPolyfill})();(function(){var h,l=this;function m(a){return void 0!==a}function aa(){}function ba(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=
 	typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function ca(a){return null!=a}function da(a){return"array"==ba(a)}function ea(a){var b=ba(a);return"array"==b||"object"==b&&"number"==typeof a.length}function n(a){return"string"==typeof a}function fa(a){return"number"==typeof a}function p(a){return"function"==ba(a)}function ga(a){var b=typeof a;return"object"==b&&null!=a||"function"==
 	b}var ha="closure_uid_"+(1E9*Math.random()>>>0),ia=0;function ja(a,b,c){return a.call.apply(a.bind,arguments)}function ka(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function q(a,b,c){q=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?ja:ka;return q.apply(null,
 	arguments)}function la(a,b){var c=Array.prototype.slice.call(arguments,1);return function(){var b=c.slice();b.push.apply(b,arguments);return a.apply(this,b)}}function r(a,b){for(var c in b)a[c]=b[c]}var ma=Date.now||function(){return+new Date};function na(a,b){a=a.split(".");var c=l;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var d;a.length&&(d=a.shift());)!a.length&&m(b)?c[d]=b:c=c[d]&&c[d]!==Object.prototype[d]?c[d]:c[d]={}}function t(a,b){function c(){}c.prototype=b.prototype;a.h=b.prototype;
@@ -36096,10 +36119,10 @@
 	"%27")+"'"),e.opener=null,bc("b/12014412, meta tag with sanitized URL"),b='<META HTTP-EQUIV="refresh" content="0; url='+ra(b)+'">',e.document.write(oc((new mc).be(b))),e.document.close())):e=b.open(hc(a),d,e);e&&e.focus()}else window.location.assign(a)};na("firebaseui.auth.AuthUI",tl);na("firebaseui.auth.AuthUI.prototype.start",tl.prototype.start);na("firebaseui.auth.AuthUI.prototype.setConfig",tl.prototype.Vb);na("firebaseui.auth.AuthUI.prototype.signIn",tl.prototype.ue);na("firebaseui.auth.AuthUI.prototype.reset",
 	tl.prototype.reset);na("firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM",Wi);na("firebaseui.auth.CredentialHelper.NONE","none")})(); })();module.exports=firebaseui;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(304)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(305)(module)))
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -36115,38 +36138,11 @@
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
-
-/***/ }),
-/* 306 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.firebaseApp = undefined;
-
-	var _firebase = __webpack_require__(247);
-
-	var firebase = _interopRequireWildcard(_firebase);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	var config = {
-	    apiKey: "AIzaSyDYXK1XqA1IeJZCFX7wUKfMPrf2_vw908E",
-	    authDomain: "minerva-ae094.firebaseapp.com",
-	    databaseURL: "https://minerva-ae094.firebaseio.com",
-	    projectId: "minerva-ae094",
-	    storageBucket: "minerva-ae094.appspot.com",
-	    messagingSenderId: "930386897254"
-	};
-	var firebaseApp = exports.firebaseApp = firebase.initializeApp(config);
 
 /***/ }),
 /* 307 */
