@@ -36324,6 +36324,8 @@
 
 	var styles = _interopRequireWildcard(_DashboardView);
 
+	var _FirebaseManager = __webpack_require__(247);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -36345,6 +36347,38 @@
 	    }
 
 	    _createClass(DashboardView, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            _FirebaseManager.firebaseApp.auth().onAuthStateChanged(function (user) {
+	                if (user) {
+	                    // User is signed in.
+	                    var displayName = user.displayName;
+	                    var email = user.email;
+	                    var emailVerified = user.emailVerified;
+	                    var photoURL = user.photoURL;
+	                    var uid = user.uid;
+	                    var phoneNumber = user.phoneNumber;
+	                    var providerData = user.providerData;
+	                    user.getToken().then(function (accessToken) {
+	                        document.getElementById('introContentInfo').textContent = JSON.stringify({
+	                            phoneNumber: phoneNumber,
+	                            uid: uid,
+	                            accessToken: accessToken,
+	                            providerData: providerData
+	                        }, null, '  ');
+	                    });
+	                    _FirebaseManager.firebaseApp.database().ref('/loginData/' + uid).once('value').then(function (snapshot) {
+	                        document.getElementById('introContentLogin').textContent = JSON.stringify(snapshot.val());
+	                    });
+	                } else {
+	                    // User is signed out.
+	                    document.getElementById('introContentInfo').textContent = 'Not Logged In';
+	                }
+	            }, function (error) {
+	                console.log(error);
+	            });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
