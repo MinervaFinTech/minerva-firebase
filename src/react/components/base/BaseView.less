@@ -1,0 +1,34 @@
+
+@header-height:60px;
+
+@header-bg-color:#e03b3b;
+@header-bg-shadow-color:#da7878;
+@header-logo-color: #480000;
+
+@body-bg-color: #e7e8e9;
+
+.bodyContainer {
+
+    .headerWrapper {
+        box-sizing: border-box;
+        position: fixed;
+        height: @header-height;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: @header-bg-color;
+        box-shadow: 0px 1px 4px @header-bg-shadow-color;
+    }
+
+    .mainWrapper {
+        margin-top: @header-height;
+
+        .main {
+
+            .mainContainer {
+                margin: 20px auto 0px;
+                max-width: 600px;
+            }
+        }
+    }
+}

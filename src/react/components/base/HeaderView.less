@@ -1,0 +1,29 @@
+
+@header-height:60px;
+
+@header-bg-color:#e03b3b;
+@header-bg-shadow-color:#da7878;
+@header-logo-color: #480000;
+
+.header {
+    
+    .headerContainer {
+        box-sizing: content-box;
+        color: white;
+        line-height: @header-height;
+        margin: 0px 15px;
+
+        .logoWrapper {
+            display: inline-block;
+            font-family: Helvetica;
+            vertical-align: top;
+
+            .logoText {
+                color: @header-logo-color;
+                font-weight: bolder;
+                font-size: 25px;
+                text-shadow: 0px 0px 24px white;
+            }
+        }
+    }
+}
