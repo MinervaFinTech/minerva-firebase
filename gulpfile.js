@@ -87,6 +87,7 @@ gulp.task('serve', ['build'], function() {
   gulp.watch(path.join(paths.src,'scripts/**/*.js'), ['processJS']).on('change', browserSync.reload);
   gulp.watch(path.join(paths.src,'react/**/*'), ['processReact']).on('change', browserSync.reload);
   gulp.watch(path.join(paths.src,'*.html'), ['processHTML']).on('change', browserSync.reload);
+  gulp.watch(path.join(paths.src, 'assets/**/*'), ['processAssets']).on('change', browserSync.reload);
 });
 
 gulp.task('node-serve', ['build'], function() {
