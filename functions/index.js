@@ -20,3 +20,9 @@ exports.fetchHistory = require('./fetchHistory')(functions,db);
 exports.updateHistory = require('./updateHistory')(functions,db);
 exports.createUser = require('./createUser')(functions,db);
 exports.kiteCallback = require('./kiteCallback')(functions,db);
+
+exports.historicalAnalysis = require('./historicalAnalysis')(functions, db);
+
+exports.updateCase = require('./smallCase').updateCase(functions, db);
+exports.removeFromCase = require('./smallCase').removeFromCase(functions, db);
+exports.analyzeCase = require('./smallCase').analyzeCase(functions, db);
